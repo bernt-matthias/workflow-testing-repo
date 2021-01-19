@@ -147,7 +147,7 @@ jobs:
       with:
         path: ~/.planemo
         key: planemo_cache_py_${{ matrix.python-version }}_gxy_${{ needs.setup.outputs.galaxy-head-sha }}
-    - run: ./.scripts/setup_cvmfs.sh
+#     - run: ./.scripts/setup_cvmfs.sh
     - uses: bernt-matthias/planemo-ci-action@master
       with:
         test-workflows: true
@@ -157,7 +157,6 @@ jobs:
         planemo-version: https://github.com/mvdbeek/planemo/archive/allow_testing_dir_of_workflows.zip
         chunk: ${{ matrix.chunk }}
         chunk-count: ${{ needs.setup.outputs.chunk-count }}
-        combine-outputs: true
     - uses: actions/upload-artifact@v2
       with:
         name: 'Workflow test output ${{ matrix.chunk }}'
