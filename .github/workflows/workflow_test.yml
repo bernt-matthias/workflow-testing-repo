@@ -12,8 +12,8 @@ jobs:
     outputs:
       galaxy-head-sha: ${{ steps.get-galaxy-sha.outputs.galaxy-head-sha }}
       commit-range: ${{ steps.discover.outputs.commit-range }}
-      repositories: ${{ steps.discover.outputs.repositories }}
-      tools: ${{ steps.discover.outputs.tools }}
+      repository-list: ${{ steps.discover.outputs.repository-list }}
+      tool-list: ${{ steps.discover.outputs.tool-list }}
       chunk-count: ${{ steps.discover.outputs.chunk-count }}
       chunk-list: ${{ steps.discover.outputs.chunk-list }}
     strategy:
@@ -63,9 +63,9 @@ jobs:
     - name: Show commit range
       run: echo ${{ steps.discover.outputs.commit-range }}
     - name: Show repository list
-      run: echo "${{ steps.discover.outputs.repositories }}"
+      run: echo "${{ steps.discover.outputs.repository-list }}"
     - name: Show tool list
-      run: echo "${{ steps.discover.outputs.tools }}"
+      run: echo "${{ steps.discover.outputs.tool-list }}"
     - name: Show chunks
       run: |
         echo 'Using ${{ steps.discover.outputs.chunk-count }} chunks (${{ steps.discover.outputs.chunk-list }})'
@@ -103,8 +103,8 @@ jobs:
       with:
         lint-workflows: true
         planemo-version: https://github.com/mvdbeek/planemo/archive/allow_testing_dir_of_workflows.zip
-        repositories: ${{ needs.setup.outputs.repositories }}
-        tools-in: ${{ needs.setup.outputs.tools }}
+        repository-list: ${{ needs.setup.outputs.repository-list }}
+        tool-list: ${{ needs.setup.outputs.tool-list }}
 
   test:
     name: Test workflows
