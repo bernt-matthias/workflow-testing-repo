@@ -103,6 +103,7 @@ jobs:
         lint-workflows: true
         planemo-version: https://github.com/mvdbeek/planemo/archive/allow_testing_dir_of_workflows.zip
         repositories: ${{ needs.setup.outputs.repositories }}
+        tools: ${{ needs.setup.outputs.tools }}
 
 
   test:
