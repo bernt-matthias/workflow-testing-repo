@@ -96,7 +96,7 @@ jobs:
       with:
         path: ~/.cache/pip
         key: pip_cache_py_${{ matrix.python-version }}_gxy_${{ needs.setup.outputs.galaxy-head-sha }}
-    - run: echo ${{ needs.setup.outputs.tools }}
+    - run: echo "${{ needs.setup.outputs.tools }}"
     - name: Planemo lint
       uses: bernt-matthias/planemo-ci-action@master
       id: lint
@@ -104,7 +104,7 @@ jobs:
         lint-workflows: true
         planemo-version: https://github.com/mvdbeek/planemo/archive/allow_testing_dir_of_workflows.zip
         repositories: ${{ needs.setup.outputs.repositories }}
-        tools: ${{ needs.setup.outputs.tools }}
+        tools-in: ${{ needs.setup.outputs.tools }}
 
   test:
     name: Test workflows
