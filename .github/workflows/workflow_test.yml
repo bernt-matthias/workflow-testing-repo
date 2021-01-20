@@ -131,7 +131,8 @@ jobs:
     # and use it as the current working directory
     - uses: actions/checkout@v2
       with:
-        fetch-depth: 1
+        # TODO restore fetch-depth: 1 once planemo ci_find_tools can run wo --changed_in_commit_range
+        fetch-depth: 0
     - uses: actions/setup-python@v1
       with:
         python-version: ${{ matrix.python-version }}
@@ -147,7 +148,6 @@ jobs:
       with:
         path: ~/.planemo
         key: planemo_cache_py_${{ matrix.python-version }}_gxy_${{ needs.setup.outputs.galaxy-head-sha }}
-#     - run: ./.scripts/setup_cvmfs.sh
     - uses: bernt-matthias/planemo-ci-action@master
       with:
         test-workflows: true
