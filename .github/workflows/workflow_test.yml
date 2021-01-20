@@ -104,7 +104,7 @@ jobs:
       with:
         lint-mode: true
         workflows: true
-        planemo-version: https://github.com/galaxyproject/planemo/archive/18a41d3a67a0df5b816c8b5ebb5e94d292dd9481.zip
+        # planemo-version: https://github.com/galaxyproject/planemo/archive/18a41d3a67a0df5b816c8b5ebb5e94d292dd9481.zip
         repository-list: ${{ needs.setup.outputs.repository-list }}
         tool-list: ${{ needs.setup.outputs.tool-list }}
 
