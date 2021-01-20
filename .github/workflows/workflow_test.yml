@@ -55,7 +55,7 @@ jobs:
       id: discover
       with:
         create-cache: ${{ steps.cache-pip.outputs.cache-hit != 'true' || steps.cache-planemo.outputs.cache-hit != 'true' }}
-        planemo-version: https://github.com/mvdbeek/planemo/archive/allow_testing_dir_of_workflows.zip
+        planemo-version: https://github.com/galaxyproject/planemo/archive/18a41d3a67a0df5b816c8b5ebb5e94d292dd9481.zip
         galaxy-fork: ${{ env.GALAXY_FORK }}
         galaxy-branch: ${{ env.GALAXY_BRANCH }}
         max-chunks: ${{ env.MAX_CHUNKS }}
@@ -102,7 +102,7 @@ jobs:
       id: lint
       with:
         lint-workflows: true
-        planemo-version: https://github.com/mvdbeek/planemo/archive/allow_testing_dir_of_workflows.zip
+        planemo-version: https://github.com/galaxyproject/planemo/archive/18a41d3a67a0df5b816c8b5ebb5e94d292dd9481.zip
         repository-list: ${{ needs.setup.outputs.repository-list }}
         tool-list: ${{ needs.setup.outputs.tool-list }}
 
@@ -155,7 +155,7 @@ jobs:
         repository-list: ${{ needs.setup.outputs.repository-list }}
         galaxy-fork: ${{ env.GALAXY_FORK }}
         galaxy-branch: ${{ env.GALAXY_BRANCH }}
-        planemo-version: https://github.com/mvdbeek/planemo/archive/allow_testing_dir_of_workflows.zip
+        planemo-version: https://github.com/galaxyproject/planemo/archive/18a41d3a67a0df5b816c8b5ebb5e94d292dd9481.zip
         chunk: ${{ matrix.chunk }}
         chunk-count: ${{ needs.setup.outputs.chunk-count }}
     - uses: actions/upload-artifact@v2
@@ -195,7 +195,7 @@ jobs:
       with:
         combine-outputs: true
         html-report: true
-        planemo-version: https://github.com/mvdbeek/planemo/archive/allow_testing_dir_of_workflows.zip
+        planemo-version: https://github.com/galaxyproject/planemo/archive/18a41d3a67a0df5b816c8b5ebb5e94d292dd9481.zip
         # repositories: ${{ needs.setup.outputs.repositories }}
     - uses: actions/upload-artifact@v2
       with:
@@ -234,6 +234,6 @@ jobs:
       with:
         workflow-upload: true
         workflow-namespace: iwc-workflows
-        planemo-version: https://github.com/mvdbeek/planemo/archive/allow_testing_dir_of_workflows.zip
+        planemo-version: https://github.com/galaxyproject/planemo/archive/18a41d3a67a0df5b816c8b5ebb5e94d292dd9481.zip
         repositort-list: ${{ needs.setup.outputs.repository-list }}
         github-token: ${{ secrets.IWC_WORKFLOWS_BOT_TOKEN }}
