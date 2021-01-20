@@ -11,7 +11,6 @@ jobs:
     runs-on: ubuntu-latest
     outputs:
       galaxy-head-sha: ${{ steps.get-galaxy-sha.outputs.galaxy-head-sha }}
-      commit-range: ${{ steps.discover.outputs.commit-range }}
       repository-list: ${{ steps.discover.outputs.repository-list }}
       tool-list: ${{ steps.discover.outputs.tool-list }}
       chunk-count: ${{ steps.discover.outputs.chunk-count }}
@@ -47,6 +46,10 @@ jobs:
       with:
         path: ~/.planemo
         key: planemo_cache_py_${{ matrix.python-version }}_gxy_${{ steps.get-galaxy-sha.outputs.galaxy-head-sha }}
+    # Install the `wheel` package so that when installing other packages which
+    # are not available as wheels, pip will build a wheel for them, which can be cached.
+    - name: Install wheel
+      run: pip install wheel
     - uses: actions/checkout@v2
       with:
         fetch-depth: 0
@@ -97,7 +100,6 @@ jobs:
       with:
         path: ~/.cache/pip
         key: pip_cache_py_${{ matrix.python-version }}_gxy_${{ needs.setup.outputs.galaxy-head-sha }}
-    - run: echo "${{ needs.setup.outputs.tool-list }}"
     - name: Planemo lint
       uses: bernt-matthias/planemo-ci-action@master
       id: lint
@@ -129,14 +131,11 @@ jobs:
         ports:
           - 5432:5432
     steps:
-#     - name: Setup tmate session
-#       uses: mxschmitt/action-tmate@v3
     # checkout the repository
     # and use it as the current working directory
     - uses: actions/checkout@v2
       with:
-        # TODO restore fetch-depth: 1 once planemo ci_find_tools can run wo --changed_in_commit_range
-        fetch-depth: 0
+        fetch-depth: 1
     - uses: actions/setup-python@v1
       with:
         python-version: ${{ matrix.python-version }}
@@ -152,7 +151,9 @@ jobs:
       with:
         path: ~/.planemo
         key: planemo_cache_py_${{ matrix.python-version }}_gxy_${{ needs.setup.outputs.galaxy-head-sha }}
-    - uses: bernt-matthias/planemo-ci-action@master
+    - name: Planemo test
+      uses: bernt-matthias/planemo-ci-action@master
+      id: test
       with:
         test-mode: true
         workflows: true
@@ -197,11 +198,11 @@ jobs:
         key: pip_cache_py_${{ matrix.python-version }}_gxy_${{ needs.setup.outputs.galaxy-head-sha }}
     - name: Combine outputs
       uses: bernt-matthias/planemo-ci-action@master
+      id: combine
       with:
         combine-mode: true
         html-report: true
         planemo-version: https://github.com/galaxyproject/planemo/archive/18a41d3a67a0df5b816c8b5ebb5e94d292dd9481.zip
-        # repositories: ${{ needs.setup.outputs.repositories }}
     - uses: actions/upload-artifact@v2
       with:
         name: 'All tool test results'
