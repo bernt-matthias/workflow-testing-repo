@@ -60,6 +60,7 @@ jobs:
         galaxy-branch: ${{ env.GALAXY_BRANCH }}
         max-chunks: ${{ env.MAX_CHUNKS }}
         python-version: ${{ matrix.python-version }}
+        workflows: true
     - name: Show commit range
       run: echo ${{ steps.discover.outputs.commit-range }}
     - name: Show repository list
@@ -101,7 +102,8 @@ jobs:
       uses: bernt-matthias/planemo-ci-action@master
       id: lint
       with:
-        lint-workflows: true
+        lint: true
+        workflows: true
         planemo-version: https://github.com/galaxyproject/planemo/archive/18a41d3a67a0df5b816c8b5ebb5e94d292dd9481.zip
         repository-list: ${{ needs.setup.outputs.repository-list }}
         tool-list: ${{ needs.setup.outputs.tool-list }}
@@ -152,7 +154,8 @@ jobs:
         key: planemo_cache_py_${{ matrix.python-version }}_gxy_${{ needs.setup.outputs.galaxy-head-sha }}
     - uses: bernt-matthias/planemo-ci-action@master
       with:
-        test-workflows: true
+        test: true
+        workflows: true
         setup-cvmfs: true
         repository-list: ${{ needs.setup.outputs.repository-list }}
         galaxy-fork: ${{ env.GALAXY_FORK }}
