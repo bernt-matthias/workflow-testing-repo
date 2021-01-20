@@ -153,7 +153,6 @@ jobs:
         test-workflows: true
         setup-cvmfs: true
         repository-list: ${{ needs.setup.outputs.repository-list }}
-        commit-range: ${{ needs.setup.outputs.commit-range }}
         galaxy-fork: ${{ env.GALAXY_FORK }}
         galaxy-branch: ${{ env.GALAXY_BRANCH }}
         planemo-version: https://github.com/mvdbeek/planemo/archive/allow_testing_dir_of_workflows.zip
