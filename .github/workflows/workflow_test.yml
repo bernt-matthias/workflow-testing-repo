@@ -151,6 +151,7 @@ jobs:
     - uses: bernt-matthias/planemo-ci-action@master
       with:
         test-workflows: true
+        setup-cvmfs: true
         repository-list: ${{ needs.setup.outputs.repository-list }}
         galaxy-fork: ${{ env.GALAXY_FORK }}
         galaxy-branch: ${{ env.GALAXY_BRANCH }}
@@ -214,7 +215,7 @@ jobs:
       matrix:
         python-version: [3.7]
     runs-on: ubuntu-latest
-    # TODO if: github.ref == 'refs/heads/master' && github.repository_owner == 'mvdbeek'
+    if: github.ref == 'refs/heads/master' && github.repository_owner == 'mvdbeek'
     steps:
     - uses: actions/checkout@v2
       with:
