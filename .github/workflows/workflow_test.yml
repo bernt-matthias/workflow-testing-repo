@@ -102,7 +102,7 @@ jobs:
       uses: bernt-matthias/planemo-ci-action@master
       id: lint
       with:
-        lint: true
+        lint-mode: true
         workflows: true
         planemo-version: https://github.com/galaxyproject/planemo/archive/18a41d3a67a0df5b816c8b5ebb5e94d292dd9481.zip
         repository-list: ${{ needs.setup.outputs.repository-list }}
@@ -154,7 +154,7 @@ jobs:
         key: planemo_cache_py_${{ matrix.python-version }}_gxy_${{ needs.setup.outputs.galaxy-head-sha }}
     - uses: bernt-matthias/planemo-ci-action@master
       with:
-        test: true
+        test-mode: true
         workflows: true
         setup-cvmfs: true
         repository-list: ${{ needs.setup.outputs.repository-list }}
@@ -198,7 +198,7 @@ jobs:
     - name: Combine outputs
       uses: bernt-matthias/planemo-ci-action@master
       with:
-        combine-outputs: true
+        combine-mode: true
         html-report: true
         planemo-version: https://github.com/galaxyproject/planemo/archive/18a41d3a67a0df5b816c8b5ebb5e94d292dd9481.zip
         # repositories: ${{ needs.setup.outputs.repositories }}
@@ -210,7 +210,7 @@ jobs:
       uses: bernt-matthias/planemo-ci-action@master
       id: check
       with:
-        check-outputs: true
+        check-mode: true
 
   # deploy workflows to organization
   deploy:
